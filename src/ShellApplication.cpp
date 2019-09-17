@@ -47,15 +47,6 @@ ShellApplication::ShellApplication(int & argc, char ** argv, bool isMirServer)
 
     UnityCommandLineParser parser(*this);
 
-    if (!parser.deviceName().isEmpty()) {
-        m_deviceName = parser.deviceName();
-    } else {
-        char buffer[200];
-        property_get("ro.product.device", buffer /* value */, "desktop" /* default_value*/);
-        m_deviceName = QString(buffer);
-    }
-    m_qmlArgs.setDeviceName(m_deviceName);
-
     m_qmlArgs.setMode(parser.mode());
 
     // The testability driver is only loaded by QApplication but not by QGuiApplication.
@@ -110,7 +101,6 @@ ShellApplication::ShellApplication(int & argc, char ** argv, bool isMirServer)
     //       (eg cloned desktop, several desktops, etc)
     if (isMirServer && screens().count() == 2) {
         m_shellView->setScreen(screens().at(1));
-        m_qmlArgs.setDeviceName(QStringLiteral("desktop"));
 
         m_secondaryWindow = new SecondaryWindow(m_qmlEngine);
         m_secondaryWindow->setScreen(screens().at(0));
@@ -182,7 +172,6 @@ void ShellApplication::onScreenAdded(QScreen * /*screen*/)
     //       (eg cloned desktop, several desktops, etc)
     if (screens().count() == 2) {
         m_shellView->setScreen(screens().at(1));
-        m_qmlArgs.setDeviceName(QStringLiteral("desktop"));
         // Changing the QScreen where a QWindow is drawn makes it also lose focus (besides having
         // its backing QPlatformWindow recreated). So lets refocus it.
         m_shellView->requestActivate();
@@ -211,7 +200,6 @@ void ShellApplication::onScreenRemoved(QScreen *screen)
         delete m_secondaryWindow;
         m_secondaryWindow = nullptr;
         m_shellView->setScreen(allScreens.first());
-        m_qmlArgs.setDeviceName(m_deviceName);
         // Changing the QScreen where a QWindow is drawn makes it also lose focus (besides having
         // its backing QPlatformWindow recreated). So lets refocus it.
         m_shellView->requestActivate();
