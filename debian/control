@@ -75,7 +75,7 @@ Build-Depends: cmake,
                ttf-ubuntu-font-family,
                xvfb,
                android-headers,
-               libdeviceinfo-dev,
+               libdeviceinfo-dev
 Standards-Version: 3.9.4
 Homepage: http://launchpad.net/unity
 # If you aren't a member of ~unity-team but need to upload
@@ -122,6 +122,7 @@ Depends: dmz-cursor-theme,
          qml-module-qtquick-xmllistmodel,
          qml-module-qtsysteminfo,
 #        qml-module-ubuntu-web,
+         qml-module-hfd,
          qtdeclarative5-qtmir-plugin (>= 0.4.8),
          qtdeclarative5-ubuntu-telephony0.1,
          ubuntu-system-settings (>= 0.4),

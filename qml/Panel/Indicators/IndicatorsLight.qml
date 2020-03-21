@@ -20,7 +20,7 @@
 
 import QtQuick 2.4
 import Powerd 0.1
-import Lights 0.1
+import Hfd 0.1
 import QMenuModel 0.1 as QMenuModel
 import Unity.Indicators 0.1 as Indicators
 import Wizard 0.1
@@ -151,9 +151,9 @@ QtObject {
         }
 
         // HACK: led is only updated after turn on so first always turn off
-        Lights.state = Lights.Off
+        Leds.state = Leds.Off
         if (indicatorState != "INDICATOR_OFF")
-          Lights.state = Lights.On
+          Leds.state = Leds.On
     }
 
     // Existence of unread notifications is determined by checking for a specific icon name in a dbus signal.
@@ -193,22 +193,22 @@ QtObject {
         }
     }
 
-    Component.onDestruction: Lights.state = Lights.Off
+    Component.onDestruction: Leds.state = Leds.Off
 
     property var _colorBinding: Binding {
-        target: Lights
+        target: Leds
         property: "color"
         value: root.color
     }
 
     property var _onMillisecBinding: Binding {
-        target: Lights
+        target: Leds
         property: "onMillisec"
         value: root.onMillisec
     }
 
     property var _offMillisecBinding: Binding {
-        target: Lights
+        target: Leds
         property: "offMillisec"
         value: root.offMillisec
     }
